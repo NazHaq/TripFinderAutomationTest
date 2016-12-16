@@ -29,34 +29,31 @@ public void setUp(){
 //Verify the Home page details
 @Test(priority=0)
   public void verifyHomepageTitle() {
-	 System.out.println("Starting test " + new Object(){}.getClass().getEnclosingMethod().getName());
-     expected = Constant.pageTitle;
-	 actual = driver.getTitle();
-	Assert.assertEquals(expected, actual);
-
+    System.out.println("Starting test " + new Object(){}.getClass().getEnclosingMethod().getName());
+    expected = Constant.pageTitle;
+    actual = driver.getTitle();
+    Assert.assertEquals(expected, actual);
   }
 //Search and verify the trip results table
 @Test(dataProvider="SearchProvider",dataProviderClass=DataProviderClass.class, priority=1)
 public void searchTrip(String From,String To) throws InterruptedException
 {
-	System.out.println("Starting test " + new Object(){}.getClass().getEnclosingMethod().getName());
+    System.out.println("Starting test " + new Object(){}.getClass().getEnclosingMethod().getName());
     driver.findElement(By.id(Constant.searchFrom)).sendKeys(From);
     Thread.sleep(2000);
-      // Select item from live suggestion
+    // Select item from live suggestion
     driver.findElement(By.xpath(Constant.selectFromLiveSuggestion)).click();
     Thread.sleep(2000);
     driver.findElement(By.id(Constant.searchTo)).sendKeys(To);
     Thread.sleep(2000);
- // Select item from live suggestion
+    // Select item from live suggestion
     driver.findElement(By.xpath(Constant.selectToLiveSuggestion)).click();
     Thread.sleep(2000);
     driver.findElement(By.id(Constant.goButton)).click();
 
     System.out.println("Welcome, you are travelling ->"+From+" to->"+To);
-     WebElement result= driver.findElement(By.id(Constant.resultSection));
-    System.out.println(result);
-    
-    System.out.println("Welcome, you are travelling ->"+From+" to->"+To);
+    // Verify whether the results table apear after search. Other elements of the search result table can be verified too.	
+    WebElement result= driver.findElement(By.id(Constant.resultSection));
     if(result!=null)
     {
     	Assert.assertTrue(true, "Results Found");
